@@ -1,0 +1,8 @@
+scipy
+numpy
+torch
+torchvision
+networkx
+scikit_learn
+ipython
+matplotlib
