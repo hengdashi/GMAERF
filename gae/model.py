@@ -14,7 +14,8 @@ class GVAE(nn.Module):
     if target == 'adj':
       self.dc = InnerProductDecoder(dropout, act=lambda x: x)
     elif target == 'feat':
-      self.dc = MLPDecoder(dropout)
+      # self.dc = MLPDecoder(dropout)
+      self.dc = GCNDecoder(hidden_dim2, hidden_dim1, input_feat_dim, dropout, act=F.relu)
 
   def encode(self, x, adj):
     hidden1 = self.gc1(x, adj)
@@ -54,8 +55,23 @@ class MLPDecoder(nn.Module):
     super(MLPDecoder, self).__init__()
     self.dropout = dropout
     self.act = act
-    self.fc = nn.Linear(16, 1433)
+    self.fc1 = nn.Linear(256, 512)
+    self.fc2 = nn.Linear(512, 1433)
 
   def forward(self, z):
     z = F.dropout(z, self.dropout, training=self.training)
-    return self.act(self.fc(z))
+    return self.fc2(self.act(self.fc1(z)))
+
+class GCNDecoder(nn.Module):
+  """MLP decoder for prediction"""
+
+  def __init__(self, input_feat_dim, hidden_dim1, hidden_dim2, dropout, act=F.relu):
+    super(GCNDecoder, self).__init__()
+    self.dropout = dropout
+    self.gc1 = GraphConvolution(input_feat_dim, hidden_dim1, dropout, act=act)
+    self.gc2 = GraphConvolution(hidden_dim1, hidden_dim2, dropout, act=lambda x: x)
+
+  def forward(self, z, adj):
+    z = self.gc1(z, adj)
+    z = F.dropout(z, self.dropout, training=self.training)
+    return self.gc2(z, adj)
