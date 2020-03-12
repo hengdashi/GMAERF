@@ -1,0 +1,103 @@
+Using symmetric potentials:
+Iteration  1000, loss=1.29625208, accuracy=76.67%
+Iteration  2000, loss=1.31761617, accuracy=80.00%
+Iteration  3000, loss=1.33608339, accuracy=79.26%
+Iteration  4000, loss=1.33823200, accuracy=79.26%
+Iteration  5000, loss=1.33783908, accuracy=79.26%
+Iteration  6000, loss=1.33742522, accuracy=79.26%
+Iteration  7000, loss=1.33721419, accuracy=79.26%
+Iteration  8000, loss=1.33712380, accuracy=79.26%
+Iteration  9000, loss=1.33708774, accuracy=79.26%
+Iteration 10000, loss=1.33707385, accuracy=79.26%
+Test accuracy: 79.26%
+
+Using asymmetric potentials:
+Iteration  1000, loss=1.45914818, accuracy=61.48%
+Iteration  2000, loss=1.47332213, accuracy=80.00%
+Iteration  3000, loss=1.49946651, accuracy=80.00%
+Iteration  4000, loss=1.50405929, accuracy=80.00%
+Iteration  5000, loss=1.50448654, accuracy=80.00%
+Iteration  6000, loss=1.50431340, accuracy=80.00%
+Iteration  7000, loss=1.50416929, accuracy=80.00%
+Iteration  8000, loss=1.50409716, accuracy=80.00%
+Iteration  9000, loss=1.50406611, accuracy=80.00%
+Iteration 10000, loss=1.50405361, accuracy=80.00%
+Test accuracy: 80.00%
+
+Using symmetric potentials with 256 hidden embeddings:
+Iteration  1000, loss=4.60502421, accuracy=56.30%
+Iteration  2000, loss=2.29135896, accuracy=76.30%
+Iteration  3000, loss=2.03582291, accuracy=77.04%
+Iteration  4000, loss=1.95552398, accuracy=76.67%
+Iteration  5000, loss=1.89370227, accuracy=77.04%
+Iteration  6000, loss=1.84054226, accuracy=77.41%
+Iteration  7000, loss=1.77441225, accuracy=77.78%
+Iteration  8000, loss=1.73262955, accuracy=77.41%
+Iteration  9000, loss=1.69074794, accuracy=77.04%
+Iteration 10000, loss=1.63879421, accuracy=77.41%
+Test accuracy: 77.41%
+
+Using asymmetric potentials with 256 hidden embeddings:
+Iteration  1000, loss=4.49199396, accuracy=45.93%
+Iteration  2000, loss=2.37982207, accuracy=62.96%
+Iteration  3000, loss=1.83741348, accuracy=67.04%
+Iteration  4000, loss=1.59592591, accuracy=72.59%
+Iteration  5000, loss=1.47926315, accuracy=72.59%
+Iteration  6000, loss=1.43302929, accuracy=72.96%
+Iteration  7000, loss=1.40014662, accuracy=73.33%
+Iteration  8000, loss=1.36479211, accuracy=73.33%
+Iteration  9000, loss=1.34900942, accuracy=73.70%
+Iteration 10000, loss=1.32819746, accuracy=74.07%
+Test accuracy: 74.07%
+
+Using only 256 hidden embeddings:
+Iteration  1000, loss=2.18407474, accuracy=29.26%
+Iteration  2000, loss=2.01090049, accuracy=28.89%
+Iteration  3000, loss=1.92621216, accuracy=29.63%
+Iteration  4000, loss=1.92245100, accuracy=29.63%
+Iteration  5000, loss=1.92258154, accuracy=29.63%
+Iteration  6000, loss=1.92260334, accuracy=29.63%
+Iteration  7000, loss=1.92260574, accuracy=29.63%
+Iteration  8000, loss=1.92260574, accuracy=29.63%
+Iteration  9000, loss=1.92260545, accuracy=29.63%
+Iteration 10000, loss=1.92260513, accuracy=29.63%
+Test accuracy: 29.63%
+
+Using symmetric potentials with 16 hidden embeddings:
+Iteration  1000, loss=3.18485158, accuracy=45.19%
+Iteration  2000, loss=2.36235119, accuracy=54.07%
+Iteration  3000, loss=2.12724747, accuracy=57.04%
+Iteration  4000, loss=2.01282885, accuracy=58.89%
+Iteration  5000, loss=1.94221455, accuracy=61.85%
+Iteration  6000, loss=1.88212729, accuracy=62.59%
+Iteration  7000, loss=1.83129573, accuracy=63.70%
+Iteration  8000, loss=1.81909523, accuracy=64.44%
+Iteration  9000, loss=1.83754866, accuracy=65.93%
+Iteration 10000, loss=1.85331145, accuracy=66.30%
+Test accuracy: 66.30%
+
+Using asymmetric potentials with 16 hidden embeddings:
+Iteration  1000, loss=4.66287661, accuracy=33.33%
+Iteration  2000, loss=3.35080296, accuracy=49.26%
+Iteration  3000, loss=2.70612821, accuracy=53.70%
+Iteration  4000, loss=2.38790335, accuracy=59.26%
+Iteration  5000, loss=2.23244726, accuracy=60.74%
+Iteration  6000, loss=2.14882348, accuracy=61.85%
+Iteration  7000, loss=2.12409754, accuracy=63.33%
+Iteration  8000, loss=2.10602694, accuracy=64.07%
+Iteration  9000, loss=2.07131583, accuracy=64.07%
+Iteration 10000, loss=2.06511119, accuracy=65.19%
+Test accuracy: 65.19%
+
+Using only 16 hidden embeddings:
+Iteration  1000, loss=4.64534613, accuracy=27.41%
+Iteration  2000, loss=4.10114901, accuracy=27.41%
+Iteration  3000, loss=3.71309195, accuracy=27.78%
+Iteration  4000, loss=3.57076206, accuracy=28.15%
+Iteration  5000, loss=3.53657183, accuracy=27.41%
+Iteration  6000, loss=3.54360799, accuracy=27.78%
+Iteration  7000, loss=3.53862298, accuracy=27.41%
+Iteration  8000, loss=3.55814711, accuracy=27.04%
+Iteration  9000, loss=3.60141152, accuracy=26.30%
+Iteration 10000, loss=3.64800706, accuracy=25.93%
+Test accuracy: 25.93%
