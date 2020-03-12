@@ -6,12 +6,15 @@ from gae.layers import GraphConvolution
 
 
 class GVAE(nn.Module):
-  def __init__(self, input_feat_dim, hidden_dim1, hidden_dim2, dropout):
+  def __init__(self, input_feat_dim, hidden_dim1, hidden_dim2, dropout, target='adj'):
     super(GVAE, self).__init__()
     self.gc1 = GraphConvolution(input_feat_dim, hidden_dim1, dropout, act=F.relu)
     self.gc2 = GraphConvolution(hidden_dim1, hidden_dim2, dropout, act=lambda x: x)
     self.gc3 = GraphConvolution(hidden_dim1, hidden_dim2, dropout, act=lambda x: x)
-    self.dc = InnerProductDecoder(dropout, act=lambda x: x)
+    if target == 'adj':
+      self.dc = InnerProductDecoder(dropout, act=lambda x: x)
+    elif target == 'feat':
+      self.dc = MLPDecoder(dropout)
 
   def encode(self, x, adj):
     hidden1 = self.gc1(x, adj)
@@ -43,3 +46,16 @@ class InnerProductDecoder(nn.Module):
     z = F.dropout(z, self.dropout, training=self.training)
     adj = self.act(torch.mm(z, z.t()))
     return adj
+
+class MLPDecoder(nn.Module):
+  """MLP decoder for prediction"""
+
+  def __init__(self, dropout, act=F.relu):
+    super(MLPDecoder, self).__init__()
+    self.dropout = dropout
+    self.act = act
+    self.fc = nn.Linear(16, 1433)
+
+  def forward(self, z):
+    z = F.dropout(z, self.dropout, training=self.training)
+    return self.act(self.fc(z))

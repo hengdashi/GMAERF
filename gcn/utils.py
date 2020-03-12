@@ -16,7 +16,7 @@ def load_data(path="data/", dataset="cora"):
     """Load citation network dataset (cora only for now)"""
     print('Loading {} dataset...'.format(dataset))
 
-    idx_features_labels = np.genfromtxt("{}{}.content".format(path, dataset),
+    idx_features_labels = np.genfromtxt(f"{path}{dataset}.content",
                                         dtype=np.dtype(str))
     features = sp.csr_matrix(idx_features_labels[:, 1:-1], dtype=np.float32)
     labels = encode_onehot(idx_features_labels[:, -1])
@@ -24,7 +24,7 @@ def load_data(path="data/", dataset="cora"):
     # build graph
     idx = np.array(idx_features_labels[:, 0], dtype=np.int32)
     idx_map = {j: i for i, j in enumerate(idx)}
-    edges_unordered = np.genfromtxt("{}{}.cites".format(path, dataset),
+    edges_unordered = np.genfromtxt(f"{path}{dataset}.cites",
                                     dtype=np.int32)
     edges = np.array(list(map(idx_map.get, edges_unordered.flatten())),
                      dtype=np.int32).reshape(edges_unordered.shape)

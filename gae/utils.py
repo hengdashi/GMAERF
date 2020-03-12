@@ -17,12 +17,7 @@ def load_data(dataset):
     https://stackoverflow.com/questions/11305790/pickle-incompatibility-of-numpy-arrays-between-python-2-and-3
     '''
     with open("data/ind.{}.{}".format(dataset, names[i]), 'rb') as rf:
-        u = pkl._Unpickler(rf)
-        u.encoding = 'latin1'
-        cur_data = u.load()
-        objects.append(cur_data)
-    # objects.append(
-    #     pkl.load(open("data/ind.{}.{}".format(dataset, names[i]), 'rb')))
+        objects.append(pkl.Unpickler(rf, encoding='latin1').load())
   x, tx, allx, graph = tuple(objects)
   test_idx_reorder = parse_index_file(
       "data/ind.{}.test.index".format(dataset))
@@ -52,19 +47,14 @@ def parse_index_file(filename):
   return index
 
 
-def sparse_to_tuple(sparse_mx):
-  if not sp.isspmatrix_coo(sparse_mx):
-    sparse_mx = sparse_mx.tocoo()
-  coords = np.vstack((sparse_mx.row, sparse_mx.col)).transpose()
-  values = sparse_mx.data
-  shape = sparse_mx.shape
-  return coords, values, shape
-
-
 def mask_test_edges(adj):
-  # Function to build test set with 10% positive links
-  # NOTE: Splits are randomized and results might slightly deviate from reported numbers in the paper.
-  # TODO: Clean up.
+  def sparse_to_tuple(sparse_mx):
+    if not sp.isspmatrix_coo(sparse_mx):
+      sparse_mx = sparse_mx.tocoo()
+    coords = np.vstack((sparse_mx.row, sparse_mx.col)).transpose()
+    values = sparse_mx.data
+    shape = sparse_mx.shape
+    return coords, values, shape
 
   # Remove diagonal elements
   adj = adj - sp.dia_matrix((adj.diagonal()[np.newaxis, :], [0]), shape=adj.shape)
@@ -149,7 +139,6 @@ def preprocess_graph(adj):
   rowsum = np.array(adj_.sum(1))
   degree_mat_inv_sqrt = sp.diags(np.power(rowsum, -0.5).flatten())
   adj_normalized = adj_.dot(degree_mat_inv_sqrt).transpose().dot(degree_mat_inv_sqrt).tocoo()
-  # return sparse_to_tuple(adj_normalized)
   return sparse_mx_to_torch_sparse_tensor(adj_normalized)
 
 
