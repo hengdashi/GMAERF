@@ -1,60 +1,76 @@
-Using symmetric potentials with 128 hidden embeddings:
-Iteration   100, loss=7.99816862, accuracy=50.00%
-Iteration   200, loss=6.10549709, accuracy=60.00%
-Iteration   300, loss=4.61923327, accuracy=69.63%
-Iteration   400, loss=4.02268568, accuracy=71.11%
-Iteration   500, loss=3.59765581, accuracy=73.70%
-Iteration   600, loss=3.35150426, accuracy=74.81%
-Iteration   700, loss=3.19397146, accuracy=75.93%
-Iteration   800, loss=3.04780565, accuracy=75.93%
-Iteration   900, loss=2.95958746, accuracy=75.93%
-Iteration  1000, loss=2.90832906, accuracy=76.30%
-Time taken:17.955842971801758
+Using symmetric potentials and direct featurea:
+Time taken:26.52894926071167
+Test accuracy: 77.59%
 
-Test accuracy: 76.30%
+Using asymmetric potentials and direct featurea:
+Time taken:46.54025197029114
+Test accuracy: 72.41%
+
+Using symmetric potentials and no featurea:
+Time taken:17.64534044265747
+Test accuracy: 88.33%
+
+Using asymmetric potentials and no featurea:
+Time taken:32.577611207962036
+Test accuracy: 89.07%
+
+Using symmetric potentials with 8 hidden embeddings:
+Time taken:16.84647512435913
+Test accuracy: 82.41%
+
+
+Using asymmetric potentials with 8 hidden embeddings:
+Time taken:32.277451038360596
+Test accuracy: 83.89%
+
+
+Using symmetric potentials with 16 hidden embeddings:
+Time taken:16.82911252975464
+Test accuracy: 83.52%
+
+
+Using asymmetric potentials with 16 hidden embeddings:
+Time taken:32.46872520446777
+Test accuracy: 82.41%
+
+
+Using symmetric potentials with 32 hidden embeddings:
+Time taken:16.93450093269348
+Test accuracy: 82.04%
+
+
+Using asymmetric potentials with 32 hidden embeddings:
+Time taken:31.77940320968628
+Test accuracy: 81.30%
+
+
+Using symmetric potentials with 64 hidden embeddings:
+Time taken:17.367889642715454
+Test accuracy: 81.30%
+
+
+Using asymmetric potentials with 64 hidden embeddings:
+Time taken:32.90651869773865
+Test accuracy: 78.70%
+
+
+Using symmetric potentials with 128 hidden embeddings:
+Time taken:18.236083269119263
+Test accuracy: 81.30%
+
 
 Using asymmetric potentials with 128 hidden embeddings:
-Iteration   100, loss=10.40239468, accuracy=28.52%
-Iteration   200, loss=7.00552780, accuracy=51.85%
-Iteration   300, loss=5.55899634, accuracy=59.63%
-Iteration   400, loss=4.79795977, accuracy=63.70%
-Iteration   500, loss=4.30304299, accuracy=67.04%
-Iteration   600, loss=3.92617903, accuracy=69.26%
-Iteration   700, loss=3.62835088, accuracy=70.37%
-Iteration   800, loss=3.42444550, accuracy=70.74%
-Iteration   900, loss=3.26509126, accuracy=71.48%
-Iteration  1000, loss=3.14508918, accuracy=71.85%
-Time taken:34.14533066749573
+Time taken:34.03241944313049
+Test accuracy: 76.85%
 
-Test accuracy: 71.85%
 
 Using symmetric potentials with 256 hidden embeddings:
-Iteration   100, loss=9.01431443, accuracy=42.22%
-Iteration   200, loss=7.15653281, accuracy=52.22%
-Iteration   300, loss=5.72156047, accuracy=63.70%
-Iteration   400, loss=4.97943799, accuracy=65.56%
-Iteration   500, loss=4.49980821, accuracy=67.41%
-Iteration   600, loss=4.20271324, accuracy=70.00%
-Iteration   700, loss=4.02274244, accuracy=70.37%
-Iteration   800, loss=3.91113703, accuracy=70.74%
-Iteration   900, loss=3.85936337, accuracy=71.11%
-Iteration  1000, loss=3.81981519, accuracy=71.48%
-Time taken:20.098193407058716
+Time taken:20.020697355270386
+Test accuracy: 76.48%
 
-Test accuracy: 71.48%
 
 Using asymmetric potentials with 256 hidden embeddings:
-Iteration   100, loss=11.12360443, accuracy=34.81%
-Iteration   200, loss=7.94621127, accuracy=53.70%
-Iteration   300, loss=6.52572642, accuracy=60.37%
-Iteration   400, loss=5.68915486, accuracy=64.07%
-Iteration   500, loss=5.13983078, accuracy=65.19%
-Iteration   600, loss=4.90924494, accuracy=66.67%
-Iteration   700, loss=4.67324412, accuracy=68.15%
-Iteration   800, loss=4.37548942, accuracy=70.00%
-Iteration   900, loss=4.13590738, accuracy=71.11%
-Iteration  1000, loss=4.00345929, accuracy=71.48%
-Time taken:36.15639066696167
+Time taken:34.93747663497925
+Test accuracy: 76.48%
 
-Test accuracy: 71.48%
 

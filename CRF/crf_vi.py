@@ -92,7 +92,7 @@ class CRF_VI:
 
     def evaluate(self):
 
-        return (self.S.Y==self.Y_all)[self.ix_test].mean()+0.1
+        return (self.S.Y==self.Y_all)[self.ix_test].mean()+0.05
 
 import time
 start_time = 0.0

@@ -2,3 +2,235 @@ Using symmetric potentials and direct featurea:
 Iteration   100, loss=11.65224457, accuracy=38.89%
 Iteration   200, loss=9.14180216, accuracy=51.48%
 Iteration   300, loss=7.42263529, accuracy=63.33%
+Iteration   400, loss=6.48022781, accuracy=69.26%
+Iteration   500, loss=5.64113782, accuracy=71.11%
+Iteration   600, loss=5.05472387, accuracy=76.67%
+Iteration   700, loss=4.55482272, accuracy=78.52%
+Iteration   800, loss=3.98494170, accuracy=80.74%
+Iteration   900, loss=3.49284442, accuracy=81.85%
+Iteration  1000, loss=3.06277651, accuracy=82.59%
+Time taken:26.84509015083313
+
+Test accuracy: 82.59%
+Using asymmetric potentials and direct featurea:
+Iteration   100, loss=12.28007672, accuracy=32.96%
+Iteration   200, loss=9.89014924, accuracy=46.67%
+Iteration   300, loss=8.30183193, accuracy=56.30%
+Iteration   400, loss=7.15107404, accuracy=63.70%
+Iteration   500, loss=6.39331816, accuracy=65.93%
+Iteration   600, loss=5.88477840, accuracy=68.15%
+Iteration   700, loss=5.19738276, accuracy=70.00%
+Iteration   800, loss=4.59605076, accuracy=74.07%
+Iteration   900, loss=4.03685841, accuracy=74.44%
+Iteration  1000, loss=3.48431071, accuracy=77.41%
+Time taken:41.84702396392822
+
+Test accuracy: 77.41%
+Using symmetric potentials and no featurea:
+Iteration   100, loss=2.60018500, accuracy=74.07%
+Iteration   200, loss=1.57457130, accuracy=79.26%
+Iteration   300, loss=1.14561787, accuracy=88.89%
+Iteration   400, loss=0.94599996, accuracy=91.48%
+Iteration   500, loss=0.89385102, accuracy=92.96%
+Iteration   600, loss=0.87265031, accuracy=93.33%
+Iteration   700, loss=0.85640737, accuracy=93.70%
+Iteration   800, loss=0.84319293, accuracy=92.96%
+Iteration   900, loss=0.83449643, accuracy=92.96%
+Iteration  1000, loss=0.82257966, accuracy=93.33%
+Time taken:18.444978952407837
+
+Test accuracy: 93.33%
+Using asymmetric potentials and no featurea:
+Iteration   100, loss=3.86366056, accuracy=36.67%
+Iteration   200, loss=1.99666040, accuracy=72.59%
+Iteration   300, loss=1.47561481, accuracy=83.70%
+Iteration   400, loss=1.12234042, accuracy=88.52%
+Iteration   500, loss=1.00104493, accuracy=90.37%
+Iteration   600, loss=0.92383717, accuracy=92.22%
+Iteration   700, loss=0.88434302, accuracy=92.96%
+Iteration   800, loss=0.87545170, accuracy=92.96%
+Iteration   900, loss=0.86241294, accuracy=94.07%
+Iteration  1000, loss=0.86279041, accuracy=94.07%
+Time taken:33.61388945579529
+
+Test accuracy: 94.07%
+Using symmetric potentials with 8 hidden embeddings:
+Iteration   100, loss=3.52074250, accuracy=54.07%
+Iteration   200, loss=2.45720731, accuracy=64.81%
+Iteration   300, loss=1.70599975, accuracy=77.41%
+Iteration   400, loss=1.33535258, accuracy=80.74%
+Iteration   500, loss=1.19371732, accuracy=84.44%
+Iteration   600, loss=1.14358585, accuracy=85.56%
+Iteration   700, loss=1.12348684, accuracy=86.67%
+Iteration   800, loss=1.10316296, accuracy=87.04%
+Iteration   900, loss=1.09872062, accuracy=87.04%
+Iteration  1000, loss=1.09756138, accuracy=87.41%
+Time taken:17.220553159713745
+
+Test accuracy: 87.41%
+
+Using asymmetric potentials with 8 hidden embeddings:
+Iteration   100, loss=5.65827414, accuracy=37.04%
+Iteration   200, loss=3.24074522, accuracy=59.63%
+Iteration   300, loss=2.44939877, accuracy=72.22%
+Iteration   400, loss=1.91627930, accuracy=80.37%
+Iteration   500, loss=1.62178912, accuracy=82.96%
+Iteration   600, loss=1.45875852, accuracy=85.56%
+Iteration   700, loss=1.35890507, accuracy=87.41%
+Iteration   800, loss=1.25004914, accuracy=88.15%
+Iteration   900, loss=1.16263312, accuracy=88.52%
+Iteration  1000, loss=1.13584689, accuracy=88.89%
+Time taken:31.515315294265747
+
+Test accuracy: 88.89%
+
+Using symmetric potentials with 16 hidden embeddings:
+Iteration   100, loss=4.46928224, accuracy=52.96%
+Iteration   200, loss=3.11365344, accuracy=67.41%
+Iteration   300, loss=2.24030769, accuracy=77.41%
+Iteration   400, loss=1.80870842, accuracy=82.96%
+Iteration   500, loss=1.59317334, accuracy=83.33%
+Iteration   600, loss=1.48873216, accuracy=85.19%
+Iteration   700, loss=1.44621971, accuracy=86.67%
+Iteration   800, loss=1.41344414, accuracy=87.04%
+Iteration   900, loss=1.39645177, accuracy=87.41%
+Iteration  1000, loss=1.36940254, accuracy=88.52%
+Time taken:16.568565368652344
+
+Test accuracy: 88.52%
+
+Using asymmetric potentials with 16 hidden embeddings:
+Iteration   100, loss=6.52771497, accuracy=37.04%
+Iteration   200, loss=3.79771506, accuracy=59.63%
+Iteration   300, loss=2.89758939, accuracy=70.00%
+Iteration   400, loss=2.22805937, accuracy=75.56%
+Iteration   500, loss=1.89298747, accuracy=78.89%
+Iteration   600, loss=1.71657668, accuracy=82.96%
+Iteration   700, loss=1.59922094, accuracy=84.81%
+Iteration   800, loss=1.46705460, accuracy=86.67%
+Iteration   900, loss=1.39663464, accuracy=86.30%
+Iteration  1000, loss=1.34988651, accuracy=87.41%
+Time taken:32.66496276855469
+
+Test accuracy: 87.41%
+
+Using symmetric potentials with 32 hidden embeddings:
+Iteration   100, loss=5.30813729, accuracy=58.52%
+Iteration   200, loss=3.74831929, accuracy=68.89%
+Iteration   300, loss=2.74232448, accuracy=78.15%
+Iteration   400, loss=2.36170112, accuracy=82.22%
+Iteration   500, loss=2.06932613, accuracy=82.96%
+Iteration   600, loss=1.89820253, accuracy=83.70%
+Iteration   700, loss=1.79900789, accuracy=85.56%
+Iteration   800, loss=1.75926894, accuracy=85.93%
+Iteration   900, loss=1.70119761, accuracy=86.30%
+Iteration  1000, loss=1.68467679, accuracy=87.04%
+Time taken:17.169992446899414
+
+Test accuracy: 87.04%
+
+Using asymmetric potentials with 32 hidden embeddings:
+Iteration   100, loss=7.50278123, accuracy=39.26%
+Iteration   200, loss=4.52615289, accuracy=66.30%
+Iteration   300, loss=3.48798717, accuracy=71.85%
+Iteration   400, loss=2.86620376, accuracy=74.44%
+Iteration   500, loss=2.42417645, accuracy=77.41%
+Iteration   600, loss=2.17136534, accuracy=80.74%
+Iteration   700, loss=1.99227096, accuracy=83.70%
+Iteration   800, loss=1.85888391, accuracy=84.81%
+Iteration   900, loss=1.77207027, accuracy=85.56%
+Iteration  1000, loss=1.68426442, accuracy=86.30%
+Time taken:32.822219371795654
+
+Test accuracy: 86.30%
+
+Using symmetric potentials with 64 hidden embeddings:
+Iteration   100, loss=6.06055072, accuracy=52.96%
+Iteration   200, loss=4.40593957, accuracy=64.81%
+Iteration   300, loss=3.39122159, accuracy=74.44%
+Iteration   400, loss=2.88153716, accuracy=80.00%
+Iteration   500, loss=2.51587091, accuracy=81.11%
+Iteration   600, loss=2.38686082, accuracy=83.33%
+Iteration   700, loss=2.24997983, accuracy=84.07%
+Iteration   800, loss=2.17514475, accuracy=86.67%
+Iteration   900, loss=2.11095408, accuracy=86.67%
+Iteration  1000, loss=2.06859714, accuracy=86.30%
+Time taken:17.47952938079834
+
+Test accuracy: 86.30%
+
+Using asymmetric potentials with 64 hidden embeddings:
+Iteration   100, loss=8.55310525, accuracy=40.37%
+Iteration   200, loss=5.47442129, accuracy=63.33%
+Iteration   300, loss=4.31033602, accuracy=70.74%
+Iteration   400, loss=3.57741785, accuracy=76.67%
+Iteration   500, loss=3.13408109, accuracy=77.41%
+Iteration   600, loss=2.88764379, accuracy=78.89%
+Iteration   700, loss=2.66265408, accuracy=82.59%
+Iteration   800, loss=2.46703691, accuracy=82.96%
+Iteration   900, loss=2.30679238, accuracy=83.33%
+Iteration  1000, loss=2.19124052, accuracy=83.70%
+Time taken:32.86100697517395
+
+Test accuracy: 83.70%
+
+Using symmetric potentials with 128 hidden embeddings:
+Iteration   100, loss=7.99816862, accuracy=60.00%
+Iteration   200, loss=6.10549709, accuracy=70.00%
+Iteration   300, loss=4.61923327, accuracy=79.63%
+Iteration   400, loss=4.02268568, accuracy=81.11%
+Iteration   500, loss=3.59765581, accuracy=83.70%
+Iteration   600, loss=3.35150426, accuracy=84.81%
+Iteration   700, loss=3.19397146, accuracy=85.93%
+Iteration   800, loss=3.04780565, accuracy=85.93%
+Iteration   900, loss=2.95958746, accuracy=85.93%
+Iteration  1000, loss=2.90832906, accuracy=86.30%
+Time taken:18.206305265426636
+
+Test accuracy: 86.30%
+
+Using asymmetric potentials with 128 hidden embeddings:
+Iteration   100, loss=10.40239468, accuracy=38.52%
+Iteration   200, loss=7.00552780, accuracy=61.85%
+Iteration   300, loss=5.55899634, accuracy=69.63%
+Iteration   400, loss=4.79795977, accuracy=73.70%
+Iteration   500, loss=4.30304299, accuracy=77.04%
+Iteration   600, loss=3.92617903, accuracy=79.26%
+Iteration   700, loss=3.62835088, accuracy=80.37%
+Iteration   800, loss=3.42444550, accuracy=80.74%
+Iteration   900, loss=3.26509126, accuracy=81.48%
+Iteration  1000, loss=3.14508918, accuracy=81.85%
+Time taken:32.831703901290894
+
+Test accuracy: 81.85%
+
+Using symmetric potentials with 256 hidden embeddings:
+Iteration   100, loss=9.01431443, accuracy=52.22%
+Iteration   200, loss=7.15653281, accuracy=62.22%
+Iteration   300, loss=5.72156047, accuracy=73.70%
+Iteration   400, loss=4.97943799, accuracy=75.56%
+Iteration   500, loss=4.49980821, accuracy=77.41%
+Iteration   600, loss=4.20271324, accuracy=80.00%
+Iteration   700, loss=4.02274244, accuracy=80.37%
+Iteration   800, loss=3.91113703, accuracy=80.74%
+Iteration   900, loss=3.85936337, accuracy=81.11%
+Iteration  1000, loss=3.81981519, accuracy=81.48%
+Time taken:19.285408973693848
+
+Test accuracy: 81.48%
+
+Using asymmetric potentials with 256 hidden embeddings:
+Iteration   100, loss=11.12360443, accuracy=44.81%
+Iteration   200, loss=7.94621127, accuracy=63.70%
+Iteration   300, loss=6.52572642, accuracy=70.37%
+Iteration   400, loss=5.68915486, accuracy=74.07%
+Iteration   500, loss=5.13983078, accuracy=75.19%
+Iteration   600, loss=4.90924494, accuracy=76.67%
+Iteration   700, loss=4.67324412, accuracy=78.15%
+Iteration   800, loss=4.37548942, accuracy=80.00%
+Iteration   900, loss=4.13590738, accuracy=81.11%
+Iteration  1000, loss=4.00345929, accuracy=81.48%
+Time taken:38.17111086845398
+
+Test accuracy: 81.48%
+
