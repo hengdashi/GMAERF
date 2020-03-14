@@ -23,7 +23,7 @@ args = {
   'weight_decay': 3e-4,
   # 'weight_decay': 0,
   'dropout': 0,
-  'target': 'adj'
+  'target': 'feat-gcn'
 }
 
 
@@ -55,8 +55,7 @@ if args['target'] == 'adj':
 elif args['target'] == 'feat-mlp' or args['target'] == 'feat-gcn':
     # count(neg) / count(pos)
     pos_weight = torch.sqrt(torch.Tensor([float(features.shape[0] * features.shape[1] - features.sum()) / features.sum()]))
-    # norm = features.shape[0] * features.shape[1] / float((features.shape[0] * features.shape[1] - features.sum()) * 2)
-    norm = 1
+    norm = features.shape[0] * features.shape[1] / float((features.shape[0] * features.shape[1] - features.sum()) * 2)
 
 
 ## training
