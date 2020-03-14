@@ -17,7 +17,7 @@ class GVAE(nn.Module):
     elif target == 'feat-mlp':
       self.decode = MLPDecoder(hidden_dim2, hidden_dim1, input_feat_dim, dropout)
     elif target == 'feat-gcn':
-      self.decode = GCNDecoder(hidden_dim2, hidden_dim1, input_feat_dim, dropout, act=F.relu)
+      self.decode = GCNDecoder(hidden_dim2, hidden_dim1, input_feat_dim, dropout)
 
   def encode(self, x, adj):
     hidden1 = self.gc1(x, adj)

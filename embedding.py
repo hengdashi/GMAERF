@@ -23,7 +23,7 @@ args = {
   'weight_decay': 3e-4,
   # 'weight_decay': 0,
   'dropout': 0,
-  'target': 'feat-mlp'
+  'target': 'adj'
 }
 
 
@@ -88,18 +88,22 @@ for epoch in range(args['epochs']):
 
   metric = 'cosine'
 
+  def confusion_mat(preds, labels):
+    tp = torch.nonzero(preds * labels).size(0)
+    fp = torch.nonzero(preds * (labels - 1)).size(0)
+    fn = torch.nonzero((preds - 1) * labels).size(0)
+    tn = torch.nonzero((preds - 1) * (labels - 1)).size(0)
+    acc = torch.mean(torch.eq(preds, labels).float())
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    return acc, precision, recall, tp, fp, fn, tn
+
   if args['target'] == 'adj':
     roc_curr, ap_curr = gae.utils.get_roc_score(hidden_emb, adj_orig, val_edges, val_edges_false)
     sim_score = (paired_distances(recovered.detach().numpy(), labels.numpy(), metric=metric)).mean()
     preds = torch.gt(torch.sigmoid(recovered), 0.5).int()
     labels = labels.int()
-    acc = torch.mean(torch.eq(preds, labels).float())
-    tp = torch.nonzero(preds * labels).size(0)
-    fp = torch.nonzero(preds * (labels - 1)).size(0)
-    fn = torch.nonzero((preds - 1) * labels).size(0)
-    tn = torch.nonzero((preds - 1) * (labels - 1)).size(0)
-    precision = tp / (tp + fp)
-    recall = tp / (tp + fn)
+    acc, precision, recall, tp, fp, fn, tn = confusion_mat(preds, labels)
     print(f"Epoch{(epoch+1):4}:", f"train_loss={cur_loss:.5f}",
           f"val_ap={ap_curr:.5f}", f"sim_score={sim_score:.5f}", f"precision={precision:.5f}", 
           f"recall={recall:.5f}", f"acc={acc:.5f}", f"tp={tp}", 
@@ -109,13 +113,7 @@ for epoch in range(args['epochs']):
     sim_score = (paired_distances(recovered.detach().numpy(), labels.numpy(), metric=metric)).mean()
     preds = torch.gt(torch.sigmoid(recovered), 0.5).int()
     labels = labels.int()
-    acc = torch.mean(torch.eq(preds, labels).float())
-    tp = torch.nonzero(preds * labels).size(0)
-    fp = torch.nonzero(preds * (labels - 1)).size(0)
-    fn = torch.nonzero((preds - 1) * labels).size(0)
-    tn = torch.nonzero((preds - 1) * (labels - 1)).size(0)
-    precision = tp / (tp + fp)
-    recall = tp / (tp + fn)
+    acc, precision, recall, tp, fp, fn, tn = confusion_mat(preds, labels)
     print(f"Epoch{(epoch+1):4}:", f"train_loss={cur_loss:.5f}",
           f"sim_score={sim_score:.5f}",
           f"acc={acc:.5f}", f"precision={precision:.5f}", f"recall={recall:.5f}",
