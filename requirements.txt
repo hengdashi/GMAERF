@@ -1,8 +1,9 @@
 scipy
 numpy
-torch
+pytorch
 torchvision
 networkx
-scikit_learn
+scikit-learn
 ipython
 matplotlib
+tensorflow==1.13.1

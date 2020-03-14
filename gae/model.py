@@ -8,14 +8,16 @@ from gae.layers import GraphConvolution
 class GVAE(nn.Module):
   def __init__(self, input_feat_dim, hidden_dim1, hidden_dim2, dropout, target='adj'):
     super(GVAE, self).__init__()
+    self.target = target
     self.gc1 = GraphConvolution(input_feat_dim, hidden_dim1, dropout, act=F.relu)
     self.gc2 = GraphConvolution(hidden_dim1, hidden_dim2, dropout, act=lambda x: x)
     self.gc3 = GraphConvolution(hidden_dim1, hidden_dim2, dropout, act=lambda x: x)
     if target == 'adj':
-      self.dc = InnerProductDecoder(dropout, act=lambda x: x)
-    elif target == 'feat':
-      # self.dc = MLPDecoder(dropout)
-      self.dc = GCNDecoder(hidden_dim2, hidden_dim1, input_feat_dim, dropout, act=F.relu)
+      self.decode = InnerProductDecoder(dropout, act=lambda x: x)
+    elif target == 'feat-mlp':
+      self.decode = MLPDecoder(hidden_dim2, hidden_dim1, input_feat_dim, dropout)
+    elif target == 'feat-gcn':
+      self.decode = GCNDecoder(hidden_dim2, hidden_dim1, input_feat_dim, dropout, act=F.relu)
 
   def encode(self, x, adj):
     hidden1 = self.gc1(x, adj)
@@ -32,7 +34,9 @@ class GVAE(nn.Module):
   def forward(self, x, adj):
     mu, logvar = self.encode(x, adj)
     z = self.reparameterize(mu, logvar)
-    return self.dc(z), mu, logvar
+    if self.target == 'adj' or self.target == 'feat-mlp':
+      return self.decode(z), mu, logvar
+    return self.decode(z, adj), mu, logvar
 
 
 class InnerProductDecoder(nn.Module):
@@ -51,12 +55,12 @@ class InnerProductDecoder(nn.Module):
 class MLPDecoder(nn.Module):
   """MLP decoder for prediction"""
 
-  def __init__(self, dropout, act=F.relu):
+  def __init__(self, hidden_dim2, hidden_dim1, input_feat_dim, dropout, act=F.relu):
     super(MLPDecoder, self).__init__()
     self.dropout = dropout
     self.act = act
-    self.fc1 = nn.Linear(256, 512)
-    self.fc2 = nn.Linear(512, 1433)
+    self.fc1 = nn.Linear(hidden_dim2, hidden_dim1)
+    self.fc2 = nn.Linear(hidden_dim1, input_feat_dim)
 
   def forward(self, z):
     z = F.dropout(z, self.dropout, training=self.training)
