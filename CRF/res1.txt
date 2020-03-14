@@ -1,0 +1,4 @@
+Using symmetric potentials and direct featurea:
+Iteration   100, loss=11.65224457, accuracy=38.89%
+Iteration   200, loss=9.14180216, accuracy=51.48%
+Iteration   300, loss=7.42263529, accuracy=63.33%

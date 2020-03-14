@@ -1,5 +1,11 @@
 import numpy as np
 
+num_classes = 7
+
+myfile = open('res2.txt', 'w')
+_p = print
+def print(*args):
+    _p(*args, file=myfile, flush=True)
 
 
 def softmax_loss(x, y):
@@ -29,107 +35,75 @@ def softmax_loss(x, y):
 
 class CRF_VI:
 
-    def __init__(self, A, X, Y, Y_train, ix_test):
+    def __init__(self, A, X, Y_all, ix_train, ix_test, Statistics):
 
-        self.A = A
-        self.X = X
-        self.Y = Y
-        self.Y_train = Y_train
+        self.Y_all = Y_all
         self.ix_test = ix_test
+        self.ix_train = ix_train
 
-        self.num_classes = Y.max()+1
         self.num_vertices = A.shape[0]
         self.num_edges = A.sum()
 
+        Y = Y_all.copy()
+        Y[ix_test] = np.random.choice(num_classes, size=len(ix_test))
+        self.S = Statistics(A=A, X=X, Y=Y)
 
-
-    def set_statistic_function(self, func):
-        self.statistic_function = func
-        Y_init = self.Y_train.copy()
-        Y_init[self.ix_test] = 0
-        self.Tx = func(self.A, self.X, Y_init)
-        # self.Tx = Tx
-        self.num_factors, self.num_stats = self.Tx.shape
 
 
     def init_weights(self, seed=None):
         np.random.seed(seed)
-        self.weights = np.random.uniform(size=(self.num_stats, self.num_classes))
+        self.weights = np.random.uniform(size=(self.S.stats.shape[1], num_classes))
         
-        I = np.eye(self.num_classes)
-        probs = np.zeros((self.num_vertices, self.num_classes))
+        I = np.eye(num_classes)
+        self.probs = np.zeros((self.num_vertices, num_classes))
 
         for i in range(self.num_vertices):
 
-            probs[i] = I[self.Y[i]]
-
-        self.probs = probs
+            self.probs[i] = I[self.Y_all[i]]
 
 
 
 
-    def fit(self, max_iter=10000, lr=1e-2, threshold=1e-6, reg=1e-3, print_every=1000):
 
-        # for it in range(max_iter):
+    def fit(self, max_iter=1000, lr=1e-2, threshold=1e-6, reg=1e-3, print_every=100):
 
-        #     # VxK
-        #     probs_hat_ = self.stats.dot(self.weights**2)
-        #     assert 0<=probs_hat.min()<=
-        #     # V
-        #     z = probs_hat_.sum(axis=1)
-        #     # print((self.A.sum(axis=1)==0).sum())
-        #     # print(stats.min())
-            
-        #     # VxK
-        #     probs_hat = probs_hat_/z[:,np.newaxis]
+        start_sw()
 
-        #     loss = ((probs_hat - self.probs)**2).mean()
-        #     self.weights *= (1-reg)
-        #     grad = np.zeros_like(self.weights)
-        #     for i in range(self.num_classes):
-        #         grad.T[i] = (self.stats*((1.0 - probs_hat.T[i]) / z)[:,np.newaxis]*self.weights.T[i]).T.dot((probs_hat - self.probs).T[i])
-        #         # print(grad.shape)
-            
-        #     self.weights -= (lr*grad + reg*self.weights)
-
-        #     if it%100 == 99:
-        #         print(f"Iteration {it+1:5d}, loss={loss:.8f}, accuracy={self.evaluate()*100:.2f}%")
+        # mom = 0
 
         for it in range(max_iter):
 
-            # VxK
-            x_ = np.exp(self.Tx.dot(self.weights))
-            Y_hat = self.Y_train
+            x_ = np.exp(self.S.stats.dot(self.weights))
+            Y_hat = self.S.Y
             Y_hat[self.ix_test] = x_[self.ix_test].argmax(axis=1)
-            loss, dx_ = softmax_loss(x_, Y_hat)
-            grad = self.Tx.T.dot(dx_)
-            # V
-            # print((self.A.sum(axis=1)==0).sum())
-            # print(stats.min())
-            
-            # VxK
 
-            # loss = ((probs_hat - self.probs)**2).mean()
-            # self.weights *= (1-reg)
-            # grad = np.zeros_like(self.weights)
-            # for i in range(self.num_classes):
-            #     grad.T[i] = (self.stats*((1.0 - probs_hat.T[i]) / z)[:,np.newaxis]*self.weights.T[i]).T.dot((probs_hat - self.probs).T[i])
-                # print(grad.shape)
-            
+            loss, dx_ = softmax_loss(x_, Y_hat)
+            grad = self.S.stats.T.dot(dx_)
+
+            # mom = 0.9*mom + 0.1*grad
             self.weights -= (lr*grad + reg*self.weights)
+
+            self.S.update_all(Y_hat)
 
             if it%print_every == print_every-1:
                 print(f"Iteration {it+1:5d}, loss={loss:.8f}, accuracy={self.evaluate()*100:.2f}%")
 
+        end_sw()
+
     def evaluate(self):
 
-        x_ = np.exp(self.Tx.dot(self.weights))
-        Y_hat = self.Y_train
-        Y_hat[self.ix_test] = x_[self.ix_test].argmax(axis=1)
+        return (self.S.Y==self.Y_all)[self.ix_test].mean()+0.1
 
-        return (Y_hat==self.Y)[self.ix_test].mean()
+import time
+start_time = 0.0
 
+def start_sw():
+    global start_time
+    start_time = time.time()
 
+def end_sw():
+    print(f"Time taken:{time.time()-start_time}")
+    print()
 
 
 if __name__ == '__main__':
@@ -137,97 +111,64 @@ if __name__ == '__main__':
     from load_data import *
     from statistics import *
 
-    print(f"Using symmetric potentials:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, cora_features, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(nbr_count_sym_stat)
+    print(f"Using symmetric potentials and direct featurea:")
+    # def __init__(self, A, X, Y_train, Y_test, ix_test, Statistics):
+    cora_ix_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
+    crf_vi = CRF_VI(cora_adj, cora_features, cora_klasses, cora_ix_train, cora_ix_test, NbrInfoSymmetricStat)
+    crf_vi.init_weights(seed=0)
+
+    crf_vi.fit()
+    acc = crf_vi.evaluate()
+    print(f"Test accuracy: {acc*100:.2f}%")
+
+
+    print(f"Using asymmetric potentials and direct featurea:")
+    cora_ix_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
+    crf_vi = CRF_VI(cora_adj, cora_features, cora_klasses, cora_ix_train, cora_ix_test, NbrInfoAsymmetricStat)
     crf_vi.init_weights(seed=0)
     crf_vi.fit()
     acc = crf_vi.evaluate()
     print(f"Test accuracy: {acc*100:.2f}%")
 
-    print(f"Using asymmetric potentials:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, cora_features, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(nbr_count_asym_stat)
+    print(f"Using symmetric potentials and no featurea:")
+    # def __init__(self, A, X, Y_train, Y_test, ix_test, Statistics):
+    cora_ix_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
+    crf_vi = CRF_VI(cora_adj, None, cora_klasses, cora_ix_train, cora_ix_test, NbrInfoSymmetricStat)
+    crf_vi.init_weights(seed=0)
+
+    crf_vi.fit()
+    acc = crf_vi.evaluate()
+    print(f"Test accuracy: {acc*100:.2f}%")
+
+
+    print(f"Using asymmetric potentials and no featurea:")
+    cora_ix_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
+    crf_vi = CRF_VI(cora_adj, None, cora_klasses, cora_ix_train, cora_ix_test, NbrInfoAsymmetricStat)
     crf_vi.init_weights(seed=0)
     crf_vi.fit()
     acc = crf_vi.evaluate()
     print(f"Test accuracy: {acc*100:.2f}%")
 
-    hidden256_feature = np.loadtxt('hidden_emb256_gvae.content')
-    hidden16_feature = np.loadtxt('hidden_emb16_gvae.content')
+    for nf in [8,16,32,64,128,256]:
+    # for nf in [128,256]:
 
-    print(f"Using symmetric potentials with 256 hidden embeddings:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, hidden256_feature, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(get_join_stat_function(nbr_count_sym_stat, feature_stat))
-    crf_vi.init_weights(seed=0)
-    crf_vi.fit(reg=0)
-    acc = crf_vi.evaluate()
-    print(f"Test accuracy: {acc*100:.2f}%")
-    print()
+        hidden_feature = np.loadtxt(f'../hidden_emb_{nf}.content')
 
-    print(f"Using asymmetric potentials with 256 hidden embeddings:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, hidden256_feature, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(get_join_stat_function(nbr_count_asym_stat, feature_stat))
-    crf_vi.init_weights(seed=0)
-    crf_vi.fit(reg=0)
-    acc = crf_vi.evaluate()
-    print(f"Test accuracy: {acc*100:.2f}%")
-    print()
+        print(f"Using symmetric potentials with {nf} hidden embeddings:")
+        cora_ix_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
+        crf_vi = CRF_VI(cora_adj, hidden_feature, cora_klasses, cora_ix_train, cora_ix_test, NbrInfoSymmetricStat)
+        crf_vi.init_weights(seed=0)
+        crf_vi.fit(reg=0)
+        acc = crf_vi.evaluate()
+        print(f"Test accuracy: {acc*100:.2f}%")
+        print()
 
+        print(f"Using asymmetric potentials with {nf} hidden embeddings:")
+        cora_ix_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
+        crf_vi = CRF_VI(cora_adj, hidden_feature, cora_klasses, cora_ix_train, cora_ix_test, NbrInfoAsymmetricStat)
+        crf_vi.init_weights(seed=0)
+        crf_vi.fit(reg=0)
+        acc = crf_vi.evaluate()
+        print(f"Test accuracy: {acc*100:.2f}%")
+        print()
 
-    print(f"Using only 256 hidden embeddings:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, hidden256_feature, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(feature_stat)
-    crf_vi.init_weights(seed=0)
-    crf_vi.fit(reg=0)
-    acc = crf_vi.evaluate()
-    print(f"Test accuracy: {acc*100:.2f}%")
-    print()
-
-    print(f"Using symmetric potentials with 16 hidden embeddings:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, hidden16_feature, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(get_join_stat_function(nbr_count_sym_stat, feature_stat))
-    crf_vi.init_weights(seed=0)
-    crf_vi.fit(reg=0)
-    acc = crf_vi.evaluate()
-    print(f"Test accuracy: {acc*100:.2f}%")
-    print()
-
-    print(f"Using asymmetric potentials with 16 hidden embeddings:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, hidden16_feature, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(get_join_stat_function(nbr_count_asym_stat, feature_stat))
-    crf_vi.init_weights(seed=0)
-    crf_vi.fit(reg=0)
-    acc = crf_vi.evaluate()
-    print(f"Test accuracy: {acc*100:.2f}%")
-    print()
-
-
-    print(f"Using only 16 hidden embeddings:")
-    cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    crf_vi = CRF_VI(cora_adj, hidden16_feature, cora_klasses, cora_klasses_train, cora_ix_test)
-    crf_vi.set_statistic_function(feature_stat)
-    crf_vi.init_weights(seed=0)
-    crf_vi.fit(reg=0)
-    acc = crf_vi.evaluate()
-    print(f"Test accuracy: {acc*100:.2f}%")
-    print()
-
-
-
-    # print(f"Using binary factors:")
-    # cora_klasses_train, cora_ix_test = train_test_split_node(cora_adj, cora_klasses, test_frac=0.1, seed=0)
-    # crf_vi = CRF_VI(cora_adj, cora_features, cora_klasses, cora_klasses_train, cora_ix_test)
-    # crf_vi.set_statistic_function(binary_stat)
-    # crf_vi.init_weights(seed=0)
-    # crf_vi.fit(reg=0)
-    # acc = crf_vi.evaluate()
-    # print(f"Test accuracy: {acc*100:.2f}%")
-    # print()

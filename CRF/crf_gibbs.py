@@ -50,37 +50,37 @@ class CRF_Gibbs:
         # self.Tx = Tx
         self.num_factors, self.num_stats = self.Tx.shape
 
-    # def sample(self, n_iter=100):
-    #     n_unknown = self.ix_test.shape[0]
-    #     Y_hat = self.Y_train.copy()
-    #     Y_hat[self.ix_test] = np.random.choice(self.num_classes, size=n_unknown)
+    def sample(self, n_iter=100):
+        n_unknown = self.ix_test.shape[0]
+        Y_hat = self.Y_train.copy()
+        Y_hat[self.ix_test] = np.random.choice(self.num_classes, size=n_unknown)
 
-    #     t_no_change = 0
+        t_no_change = 0
 
-    #     for it in range(n_iter):
-    #         u = self.ix_test[it%n_unknown]
-    #         logdist = (self.Tx[u,:].dot(self.weights))
-    #         logdist -= logdist.min()
-    #         dist = np.exp(logdist)
-    #         dist /= dist.sum()
-    #         # new_val = logdist.argmax()
-    #         new_val = np.random.choice(self.num_classes, p=dist)
+        for it in range(n_iter):
+            u = self.ix_test[it%n_unknown]
+            logdist = (self.Tx[u,:].dot(self.weights))
+            logdist -= logdist.min()
+            dist = np.exp(logdist)
+            dist /= dist.sum()
+            # new_val = logdist.argmax()
+            new_val = np.random.choice(self.num_classes, p=dist)
 
-    #         if new_val == Y_hat[u]:
-    #             t_no_change += 1
-    #         else:
-    #             t_no_change = 0
+            if new_val == Y_hat[u]:
+                t_no_change += 1
+            else:
+                t_no_change = 0
 
-    #         Y_hat[u] = new_val
-    #         # print(u, new_val, dist, self.Tx[u], self.weights)
-    #         # exit()
-    #         self.Tx[u,:] = self.statistic_function(self.A, self.X[[u],:], Y_hat)
+            Y_hat[u] = new_val
+            # print(u, new_val, dist, self.Tx[u], self.weights)
+            # exit()
+            self.Tx[u,:] = self.statistic_function(self.A, self.X[[u],:], Y_hat)
 
-    #         if t_no_change == 3:
-    #             # print(it)
-    #             break
+            if t_no_change == 3:
+                # print(it)
+                break
 
-    #     return Y_hat
+        return Y_hat
 
     def map(self):
         n_unknown = self.ix_test.shape[0]

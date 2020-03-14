@@ -1,0 +1,56 @@
+Using symmetric potentials and direct featurea:
+Iteration   100, loss=3.84064184, accuracy=57.78%
+Iteration   200, loss=2.20198663, accuracy=71.11%
+Iteration   300, loss=1.45655658, accuracy=77.41%
+Iteration   400, loss=1.09129068, accuracy=81.11%
+Iteration   500, loss=0.99293959, accuracy=80.74%
+Iteration   600, loss=0.92836684, accuracy=82.22%
+Iteration   700, loss=0.88556044, accuracy=82.22%
+Iteration   800, loss=0.85619548, accuracy=82.22%
+Iteration   900, loss=0.83513526, accuracy=82.59%
+Iteration  1000, loss=0.82208864, accuracy=82.59%
+Time taken:1584159820.1419263
+
+Test accuracy: 82.59%
+Using asymmetric potentials and direct featurea:
+Iteration   100, loss=3.86366056, accuracy=26.67%
+Iteration   200, loss=1.99666040, accuracy=62.59%
+Iteration   300, loss=1.47561481, accuracy=73.70%
+Iteration   400, loss=1.12234042, accuracy=78.52%
+Iteration   500, loss=1.00104493, accuracy=80.37%
+Iteration   600, loss=0.92383717, accuracy=82.22%
+Iteration   700, loss=0.88434302, accuracy=82.96%
+Iteration   800, loss=0.87545170, accuracy=82.96%
+Iteration   900, loss=0.86241294, accuracy=84.07%
+Iteration  1000, loss=0.86279041, accuracy=84.07%
+Time taken:1584159858.3438008
+
+Test accuracy: 84.07%
+Using symmetric potentials and no featurea:
+Iteration   100, loss=3.84064184, accuracy=57.78%
+Iteration   200, loss=2.20198663, accuracy=71.11%
+Iteration   300, loss=1.45655658, accuracy=77.41%
+Iteration   400, loss=1.09129068, accuracy=81.11%
+Iteration   500, loss=0.99293959, accuracy=80.74%
+Iteration   600, loss=0.92836684, accuracy=82.22%
+Iteration   700, loss=0.88556044, accuracy=82.22%
+Iteration   800, loss=0.85619548, accuracy=82.22%
+Iteration   900, loss=0.83513526, accuracy=82.59%
+Iteration  1000, loss=0.82208864, accuracy=82.59%
+Time taken:1584159874.9995847
+
+Test accuracy: 82.59%
+Using asymmetric potentials and no featurea:
+Iteration   100, loss=3.86366056, accuracy=26.67%
+Iteration   200, loss=1.99666040, accuracy=62.59%
+Iteration   300, loss=1.47561481, accuracy=73.70%
+Iteration   400, loss=1.12234042, accuracy=78.52%
+Iteration   500, loss=1.00104493, accuracy=80.37%
+Iteration   600, loss=0.92383717, accuracy=82.22%
+Iteration   700, loss=0.88434302, accuracy=82.96%
+Iteration   800, loss=0.87545170, accuracy=82.96%
+Iteration   900, loss=0.86241294, accuracy=84.07%
+Iteration  1000, loss=0.86279041, accuracy=84.07%
+Time taken:1584159907.3066516
+
+Test accuracy: 84.07%

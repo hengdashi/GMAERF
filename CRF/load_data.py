@@ -20,13 +20,11 @@ def train_test_split_node(adj, klasses, test_frac=0.2, seed=None):
 
 	n_test = int(adj.shape[0]*test_frac)
 	n_total = int(adj.shape[0])
-	ix_test = np.random.permutation(n_total)[:n_test]
-	# adj_train = adj.copy()
-	# adj_train[ix_test] = 0
-	# adj_train.T[ix_test] = 0
-	klasses_train = klasses.copy()
-	klasses_train[ix_test] = -1
+	perm = np.random.permutation(n_total)
+	ix_test = np.sort(perm[:n_test])
+	ix_train = np.sort(perm[n_test:])
 
-	return klasses_train, ix_test
+
+	return ix_train, ix_test
 
 
